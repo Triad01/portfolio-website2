@@ -55,5 +55,46 @@
     });
 
 
+    // typed.js for typing effect
+    document.addEventListener("DOMContentLoaded", function () {
+    if (document.querySelector('#typed-output')) {
+        new Typed('#typed-output', {
+            stringsElement: '#typed-strings',
+            typeSpeed: 100,
+            backSpeed: 50,
+            loop: true
+        });
+    }
+});
+
+// Google Maps integration to show user's location
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        let lat = position.coords.latitude;
+        let lon = position.coords.longitude;
+
+        // Create a Google Maps embed URL with user's location
+        let mapUrl = `https://www.google.com/maps?q=${lat},${lon}&hl=es;z=14&output=embed`;
+
+        // Set the iframe's src to the generated URL
+        document.getElementById("userMap").src = mapUrl;
+      },
+      function (error) {
+        console.error("Error getting location:", error);
+        alert("Unable to retrieve location.");
+      }
+    );
+  } else {
+    alert("Geolocation is not supported by this browser.");
+  }
+
+//   Prevent scroll restoration on page load
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0); // force top
+
+
 })(jQuery);
 
